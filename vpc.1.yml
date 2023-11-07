@@ -213,3 +213,4 @@ Resources:
     Properties:
       RouteTableId: !Ref MyPrivateRouteTable2
       SubnetId: !Ref MyPrivateSubnet2
+
