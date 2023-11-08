@@ -214,3 +214,36 @@ Resources:
       RouteTableId: !Ref MyPrivateRouteTable2
       SubnetId: !Ref MyPrivateSubnet2
 
+Outputs:
+ #Outputs-------------------------------------------------------------------
+  MyVPC:
+    Value: !Ref MyVPC
+    Export:
+      Name: !Ref VpcName
+  
+  MyPublicSubnet1:
+   Value: !Ref MyPublicSubnet1
+   Export:
+     Name: !Ref PublicSubnet1Name
+
+  MyPublicSubnet2:
+   Value: !Ref MyPublicSubnet2
+   Export:
+     Name: !Ref PublicSubnet2Name
+
+ PrivateSubnet1:
+   Value: !Ref MyPrivateSubnet1
+   Export:
+     Name: !Ref PrivateSubnet1Name
+
+ PrivateSubnet2:
+   Value: !Ref MyPrivateSubnet2
+   Export:
+     Name: !Ref PrivateSubnet2Name
+
+ PublicRouteTable:
+   Value: !Ref MyPublicRouteTable
+   Export:
+     Name: !Ref MyPublicRouteTableName
+  
+  

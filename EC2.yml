@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: lecture10-EC2-template
+
+
+
+Parameters:
+  #EC2----------------------------------------------------------------------
+  EC2Name: 
+   Type: String
+   Default:
+   
+  EC2ImageId: 
+    Type: AWS::SSM::Parameter::Value
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+  
+  EC2InstanceType:
+    Type: String
+    Default: t2.micro
+  
+  EC2AZ:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: ap-northeast-1a
+ 
+Resources:
+  #EC2KeyPair---------------------------------------------------------------
+  MyKeyPair:
+    Type: AWS::EC2::KeyPair
+    Properties:
+      KeyName: KeyPair-MyEC2
+
+  
+  #EC2----------------------------------------------------------------------
+  MyEC2:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone: !Ref EC2AZ
+      ImageId: !Ref EC2ImageId
+      InstanceType: !Ref EC2InstanceType
+      KeyName: !Ref MyKeyPair
+      Monitoring: false
+      NetworkInterfaces:
+      　- SecurityGroupIds: !Ref aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+          SubnetId: !ImportValue MyPublicSubnet1
+          DisableApiTermination: true
+          AssociatePublicIpAddress: true
+          DeviceIndex: "0"
+      Tags:
+       - Key: Name
+         Value: !Ref EC2Name
+  
+  
+Outputs:
+　#output-------------------------------------------------------------------
+  MyEC2:
+    Value: !Ref MyEC2
+    Export:
+      Name: !Ref EC2Name
+  
+  
+ 
