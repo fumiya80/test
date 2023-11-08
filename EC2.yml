@@ -39,7 +39,7 @@ Resources:
       KeyName: !Ref MyKeyPair
       Monitoring: false
       NetworkInterfaces:
-      　- SecurityGroupIds: !Ref aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      　- SecurityGroupIds: !Ref MyEC2SG
           SubnetId: !ImportValue MyPublicSubnet1
           DisableApiTermination: true
           AssociatePublicIpAddress: true

@@ -7,7 +7,14 @@ Parameters:
   MyIP:
     Description: IP address allowed to access EC2
     Type: String
-   
+
+  EC2SGName: 
+    Type: String
+    Default:
+    
+  RDSSGName: 
+    Type: String
+    Default:
 
  
 Resources:
@@ -15,8 +22,7 @@ Resources:
   MyEC2SG:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: MyEC2SG
-      GroupDescription: EC2-sg
+      GroupName: !Ref EC2SGName
       VpcId: !ImportValue MyVPC
       SecurityGroupIngress:
         - IpProtocol: tcp
@@ -27,16 +33,34 @@ Resources:
           FromPort: 80
           ToPort: 80
           SourceSecurityGroupId: !Ref ALBSecurityGroup
+          
+          
+  #RDSSG----------------------------------------------------------------------
+  MyRDSSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Ref RDSSGName
+      VpcId: !ImportValue MyVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          SourceSecurityGroupId: !Ref MyEC2SG
 
 
 
   
 Outputs:
 　#output-------------------------------------------------------------------
-  MyEC2:
-    Value: !Ref MyEC2
+  MyEC2SG:
+    Value: !Ref MyEC2SG
     Export:
-      Name: !Ref EC2Name
+      Name: !Ref EC2SGName
+  
+    MyEC2SG:
+    Value: !Ref MyRDSSG
+    Export:
+      Name: !Ref RDSSGName
   
   
  
