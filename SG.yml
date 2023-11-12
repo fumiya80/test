@@ -4,15 +4,19 @@ Description: lecture10-SecurityGroup-template
 
 
 Parameters:
-  MyIP:
+  MyIP: 60.147.36.53/32
     Description: IP address allowed to access EC2
     Type: String
 
-  EC2SGName: 
+  EC2SGName: RaiseTech-EC2SG
     Type: String
     Default:
     
-  RDSSGName: 
+  RDSSGName: RaiseTech-RDSSG
+    Type: String
+    Default:
+    
+  ALBSGName: RaiseTech-ALBSG
     Type: String
     Default:
 
@@ -32,7 +36,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
-          SourceSecurityGroupId: !Ref ALBSecurityGroup
+          SourceSecurityGroupId: !Ref ALBSecurityGroup   #このセキュリティグループとの通信は許可する
           
           
   #RDSSG----------------------------------------------------------------------
@@ -48,6 +52,19 @@ Resources:
           SourceSecurityGroupId: !Ref MyEC2SG
 
 
+  #ALBSG----------------------------------------------------------------------
+  MyALBSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      VpcId: !ImportValue MyVPC
+      SecurityGroupIngress: 
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      Tags: 
+        - Key: Name
+          Value: !Ref MyALBSG
 
   
 Outputs:
@@ -57,10 +74,16 @@ Outputs:
     Export:
       Name: !Ref EC2SGName
   
-    MyEC2SG:
+  MyRDSSG:
     Value: !Ref MyRDSSG
     Export:
       Name: !Ref RDSSGName
+    
+      
+  MyALBSG:
+    Value: !Ref MyALBSG
+    Export:
+      Name: !Ref ALBSGName
   
   
  

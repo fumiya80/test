@@ -1,0 +1,87 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: lecture10-ALB-template
+
+
+
+Parameters:
+  #ALB----------------------------------------------------------------------
+  ALBName: RaiseTech-ALB
+    Type: String
+    Default:
+   
+   
+   
+  #TargetGroup--------------------------------------------------------------
+  TargetGroupName: RaiseTech-TargetGroup
+    Type: String
+    Default:
+ 
+ 
+ 
+Resources:
+  #ALB---------------------------------------------------------------------
+  MyALB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties: 
+      Type: application
+      IpAddressType: ipv4
+      Name: !Ref ALBName
+      Scheme: internet-facing
+      SecurityGroups: 
+        - !ImportValue MyALBSG
+      SubnetMappings: 
+        - SubnetId: !ImportValue MyPublicSubnet1
+        - SubnetId: !ImportValue MyPublicSubnet2
+      Tags: 
+        - Key: Name
+          Value: !Ref ALBName
+  
+  
+  #TargetGroup--------------------------------------------------------------
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties: 
+      VpcId: !ImportValue MyVPC
+      IpAddressType: ipv4
+      Protocol: HTTP　　　　　　　　　　　　　　　　 #ヘルスチェックを行う際のプロトコル
+      ProtocolVersion: HTTP1
+      Port: 80
+      TargetType: instance
+      Targets: 
+        - Id: !ImportValue MyEC2
+          Port: 80
+      HealthCheckEnabled: true                        #ヘルスチェック有効化
+      HealthCheckIntervalSeconds: 60                  #ヘルスチェックの間隔
+      HealthCheckPath: /
+      HealthCheckPort: traffic-port　　　　　　　　　 #ヘルスチェックを行う際に使用するポート
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 5　　　　　　　　　　#応答を待つ時間、これを過ぎると失敗
+      HealthyThresholdCount: 3　　　　　　　　　　　　#ヘルシーと判断するヘルスチェック回数
+      UnhealthyThresholdCount: 3
+      Matcher: 
+        HttpCode: 200
+      Tags: 
+        - Key: Name
+          Value: !Ref TargetGroup
+        
+  #Listener-----------------------------------------------------------------
+  ALBListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener    
+    Properties:
+      Port: 80                                     
+      Protocol: HTTP                               
+      DefaultActions:                              
+         - TargetGroupArn: !Ref MyTargetGroup
+           Type: forward
+      LoadBalancerArn: !Ref MyALB
+  
+  
+Outputs:
+　#output-------------------------------------------------------------------
+  MyEC2:
+    Value: !Ref MyALB
+    Export:
+      Name: !Ref ALBName
+  
+
+ 
