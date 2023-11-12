@@ -5,16 +5,16 @@ Description: lecture10-vpc-template
 
 Parameters:
   #vpc----------------------------------------------------------------------
-  VpcCidrBlock:
+  VpcCidrBlock: 10.0.0.0/16
     Description: Input a VPC IPv4 CidrBlock. ex) 192.168.2.0/24
     Type: String
-  VpcName: 
+  VpcName: RaiseTech-VPC
     Description: Input a VPC name. This Parameter will be a Name tag.
     Type: String
     Default: ""
   
   #igw----------------------------------------------------------------------
-  InternetGwName:
+  InternetGwName: RaiseTech-IGW
     Description: Input a IntenetGW name. This Parameter will be a Name tag.
     Type: String
     Default: ""
@@ -23,10 +23,10 @@ Parameters:
   AZ1: ap-northeast-1a
     Description: Input a AZ where Public Subnet will be created.
     Type: AWS::EC2::AvailabilityZone::Name
-  PublicSubnet1-CidrBlock:
+  PublicSubnet1-CidrBlock: 10.0.0.0/20
     Description: Input a Public Subnet IPv4 CidrBlock.  ex) 192.168.2.0/25
     Type: String
-  PublicSubnet1Name:
+  PublicSubnet1Name: RaiseTech-PublicSubnet1
     Description: Input a Public Subnet name. This Parameter will be a Name tag.
     Type: String
     Default: ""
@@ -34,10 +34,10 @@ Parameters:
   AZ2: ap-northeast-1c
     Description: Input a AZ where Public Subnet will be created.
     Type: AWS::EC2::AvailabilityZone::Name
-  PublicSubnet2-CidrBlock:
+  PublicSubnet2-CidrBlock: 10.0.8.0/20
     Description: Input a Public Subnet IPv4 CidrBlock.  ex) 192.168.2.0/25
     Type: String
-  PublicSubnet2Name:
+  PublicSubnet2Name: RaiseTech-PublicSubnet2
     Description: Input a Public Subnet name. This Parameter will be a Name tag.
     Type: String
     Default: ""
@@ -46,10 +46,10 @@ Parameters:
   AZ3: ap-northeast-1a
     Description: Input a AZ where Private Subnet will be created.
     Type: AWS::EC2::AvailabilityZone::Name
-  PrivateSubnet1-CidrBlock:
+  PrivateSubnet1-CidrBlock: 10.0.16.0/20
     Description: Input a Private Subnet IPv4 CidrBlock.  ex) 192.168.2.0/25
     Type: String
-  PrivateSubnet1Name:
+  PrivateSubnet1Name: RaiseTech-PrivateSubnet1
     Description: Input a Private Subnet name. This Parameter will be a Name tag.
     Type: String
     Default: ""
@@ -57,10 +57,10 @@ Parameters:
   AZ4: ap-northeast-1c
     Description: Input a AZ where Private Subnet will be created.
     Type: AWS::EC2::AvailabilityZone::Name
-  PrivateSubnet2-CidrBlock:
+  PrivateSubnet2-CidrBlock: 10.0.32.0/20
     Description: Input a Private Subnet IPv4 CidrBlock.  ex) 192.168.2.0/25
     Type: String
-  PrivateSubnet2Name:
+  PrivateSubnet2Name: RaiseTech-PrivateSubnet1
     Description: Input a Private Subnet name. This Parameter will be a Name tag.
     Type: String
     Default: ""

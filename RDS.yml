@@ -5,7 +5,7 @@ Description: lecture10-RDS-template
 
 Parameters:
   #RDS----------------------------------------------------------------------
-  RDSName: 
+  RDSName: RaiseTech-RDS
    Type: String
    Default:
   
@@ -17,7 +17,7 @@ Parameters:
     Type: String
     Default: adminadmin
   
-  RDSSubnetGroupName: 
+  RDSSubnetGroupName: RaiseTech-RDSSubnetGroup
    Type: String
    Default:
 
@@ -31,7 +31,7 @@ Resources:
    UpdateReplacePolicy: Delete
    Properties:
      AvailabilityZone: !Ref RDSAZ
-     DBInstanceIdentifier: !Ref RDSName   
+     DBInstanceIdentifier: !Ref RDSName   　　　　         #RDSの名前
      DBSubnetGroupName: !Ref RDSSubnetGroup
      DBInstanceClass: db.t2.micro
      AllocatedStorage: 20
@@ -39,8 +39,9 @@ Resources:
      StorageType: gp2
      MasterUsername: admin
      MasterUserPassword: !Ref RDSMasterUserPassword
-     CopyTagsToSnapshot: false
-     DeleteAutomatedBackups: true
+     CopyTagsToSnapshot: false                             #スナップショットにタグを関連付ける
+     DeleteAutomatedBackups: true                          #RDS削除時に生成されるスナップショットの削除
+     DeletionProtection: false　　　　　　　　　　　　     #削除保護
      PubliclyAccessible: false
      MultiAZ: false
      VPCSecurityGroups: 
@@ -62,7 +63,7 @@ Resources:
   
   
 Outputs:
-  RDS:
+  MyRDS:
     Value: !Ref MyRDS
     Export:
       Name: !Ref RDSName 

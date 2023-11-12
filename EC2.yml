@@ -5,7 +5,7 @@ Description: lecture10-EC2-template
 
 Parameters:
   #EC2----------------------------------------------------------------------
-  EC2Name: 
+  EC2Name: RaiseTech-EC2
    Type: String
    Default:
    
@@ -34,16 +34,17 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       AvailabilityZone: !Ref EC2AZ
-      ImageId: !Ref EC2ImageId
+      ImageId: !Ref EC2ImageId　　　　　　　　　　　 #AMIを選択
       InstanceType: !Ref EC2InstanceType
       KeyName: !Ref MyKeyPair
       Monitoring: false
       NetworkInterfaces:
-      　- SecurityGroupIds: !Ref MyEC2SG
+      　- SecurityGroupIds: !ImportValue MyEC2SG
           SubnetId: !ImportValue MyPublicSubnet1
-          DisableApiTermination: true
-          AssociatePublicIpAddress: true
+          DisableApiTermination: false　　　　　　　 #インスタンスの終了防止
+          AssociatePublicIpAddress: true　　　　　   #インスタンスにIPアドレスを割り当てる
           DeviceIndex: "0"
+      IamInstanceProfile: !Ref MyEC2InstanceProfile  #IAMroleを付与
       Tags:
        - Key: Name
          Value: !Ref EC2Name

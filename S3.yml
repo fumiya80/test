@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: lecture10-S3-template
+
+
+
+Parameters:
+  #S3----------------------------------------------------------------------
+  S3Name: RaiseTech-S3
+   Type: String
+   Default:
+
+Resources:
+  #S3----------------------------------------------------------------------
+  MyS3:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref S3Name
+      AccessControl: Private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
+      Tags:
+        - Key: Name
+          Value: !Ref S3Name
+  
+Outputs:
+　#output-------------------------------------------------------------------
+  MyS3:
+    Value: !Ref MyS3
+    Export:
+      Name: !Ref S3Name
+  
+  
+ 
