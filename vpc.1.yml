@@ -4,16 +4,16 @@ Description: lecture10-vpc-template
 
 
 Parameters:
-  #vpc----------------------------------------------------------------------
+  # vpc----------------------------------------------------------------------
   VpcCidrBlock: 10.0.0.0/16
-    # Description: Input a VPC IPv4 CidrBlock. #ex 192.168.2.0/24
+    Description: Input a VPC IPv4 CidrBlock. # ex 192.168.2.0/24
     Type: String
   VpcName: RaiseTech-VPC
     Description: Input a VPC name. This Parameter will be a Name tag.
     Type: String
     Default: ""
-  
-  #igw----------------------------------------------------------------------
+
+  # igw----------------------------------------------------------------------
   InternetGwName: RaiseTech-IGW
     Description: Input a IntenetGW name. This Parameter will be a Name tag.
     Type: String
