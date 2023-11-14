@@ -74,18 +74,18 @@ Parameters:
     Default: "RaiseTech-PrivateSubnet1"
   
   #PublicRouteTable------------------------------------------------------------
-  MyPublicRouteTableName:
+  PublicRouteTableName:
     Description: Input a RouteTable name. This Parameter will be a Name tag.
     Type: String
     Default: "RaiseTech-PublicRouteTable"
   
   #PrivateRouteTable------------------------------------------------------------
-  MyPrivateRouteTable1Name:
+  PrivateRouteTable1Name:
     Description: Input a RouteTable name. This Parameter will be a Name tag.
     Type: String
     Default: "RaiseTech-PrivateRouteTable1"
     
-  MyPrivateRouteTable2Name:
+  PrivateRouteTable2Name:
     Description: Input a RouteTable name. This Parameter will be a Name tag.
     Type: String
     Default: "RaiseTech-PrivateRouteTable2"
