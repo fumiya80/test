@@ -239,19 +239,19 @@ Outputs:
    Export:
      Name: !Ref PublicSubnet2Name
 
- PrivateSubnet1:
-   Value: !Ref MyPrivateSubnet1
-   Export:
-     Name: !Ref PrivateSubnet1Name
+  PrivateSubnet1:
+    Value: !Ref MyPrivateSubnet1
+    Export:
+      Name: !Ref PrivateSubnet1Name
 
- PrivateSubnet2:
-   Value: !Ref MyPrivateSubnet2
-   Export:
-     Name: !Ref PrivateSubnet2Name
+  PrivateSubnet2:
+    Value: !Ref MyPrivateSubnet2
+    Export:
+      Name: !Ref PrivateSubnet2Name
 
- PublicRouteTable:
-   Value: !Ref MyPublicRouteTable
-   Export:
-     Name: !Ref MyPublicRouteTableName
+  PublicRouteTable:
+    Value: !Ref MyPublicRouteTable
+    Export:
+      Name: !Ref MyPublicRouteTableName
   
   
