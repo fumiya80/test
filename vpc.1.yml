@@ -71,7 +71,7 @@ Parameters:
   PrivateSubnet2Name:
     Description: Input a Private Subnet name. This Parameter will be a Name tag.
     Type: String
-    Default: "RaiseTech-PrivateSubnet1"
+    Default: "RaiseTech-PrivateSubnet2"
   
   #PublicRouteTable------------------------------------------------------------
   PublicRouteTableName:
@@ -240,12 +240,12 @@ Outputs:
    Export:
      Name: !Ref PublicSubnet2Name
 
-  PrivateSubnet1:
+  MyPrivateSubnet1:
     Value: !Ref MyPrivateSubnet1
     Export:
       Name: !Ref PrivateSubnet1Name
 
-  PrivateSubnet2:
+  MyPrivateSubnet2:
     Value: !Ref MyPrivateSubnet2
     Export:
       Name: !Ref PrivateSubnet2Name
