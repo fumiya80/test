@@ -253,6 +253,6 @@ Outputs:
   PublicRouteTable:
     Value: !Ref MyPublicRouteTable
     Export:
-      Name: !Ref MyPublicRouteTableName
+      Name: !Ref PublicRouteTableName
   
   
