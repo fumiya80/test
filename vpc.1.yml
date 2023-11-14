@@ -78,7 +78,8 @@ Parameters:
     Description: Input a RouteTable name. This Parameter will be a Name tag.
     Type: String
     Default: "RaiseTech-PublicRouteTable"
-  
+
+
   #PrivateRouteTable------------------------------------------------------------
   PrivateRouteTable1Name:
     Description: Input a RouteTable name. This Parameter will be a Name tag.
@@ -173,7 +174,7 @@ Resources:
         - Key: Name
           Value: !Ref PublicRouteTableName
       VpcId: !Ref MyVPC
-  
+
   MyPublicRoute:
     Type: AWS::EC2::Route
     Properties:
