@@ -70,18 +70,18 @@ Resources:
 
 Outputs:
 　# output-------------------------------------------------------------------
-  MyEC2SG:
+  EC2SG:
     Value: !Ref MyEC2SG
     Export:
       Name: !Ref EC2SGName
 
-  MyRDSSG:
+  RDSSG:
     Value: !Ref MyRDSSG
     Export:
       Name: !Ref RDSSGName
 
 
-  MyALBSG:
+  ALBSG:
     Value: !Ref MyALBSG
     Export:
       Name: !Ref ALBSGName
