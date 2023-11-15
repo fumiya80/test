@@ -79,7 +79,7 @@ Outputs:
     Value: !Ref MyRDSSG
     Export:
       Name: !Ref RDSSGName
-    
+
       
   MyALBSG:
     Value: !Ref MyALBSG
