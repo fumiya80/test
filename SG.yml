@@ -69,7 +69,7 @@ Resources:
 
 
 Outputs:
-　#output-------------------------------------------------------------------
+　# output-------------------------------------------------------------------
   MyEC2SG:
     Value: !Ref MyEC2SG
     Export:
@@ -80,7 +80,7 @@ Outputs:
     Export:
       Name: !Ref RDSSGName
 
-      
+
   MyALBSG:
     Value: !Ref MyALBSG
     Export:
