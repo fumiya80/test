@@ -32,7 +32,7 @@ Resources:
           CidrIp: 0.0.0.0/0
       Tags:
         - Key: Name
-          Value: !Ref MyALBSG
+          Value: !Ref MyALBName
 
   #EC2SG----------------------------------------------------------------------
   MyEC2SG:
