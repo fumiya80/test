@@ -34,7 +34,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
-          SourceSecurityGroupId: !Ref ALBSecurityGroup  #このセキュリティグループとの通信は許可する
+          SourceSecurityGroupId: !Ref MyALBSG  #このセキュリティグループとの通信は許可する
 
   #RDSSG----------------------------------------------------------------------
   MyRDSSG:
