@@ -20,6 +20,20 @@ Parameters:
     Default: "RaiseTech-ALBSG"
 
 Resources:
+  #ALBSG----------------------------------------------------------------------
+  MyALBSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !ImportValue MyVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: !Ref MyALBSG
+
   #EC2SG----------------------------------------------------------------------
   MyEC2SG:
     Type: AWS::EC2::SecurityGroup
@@ -47,20 +61,6 @@ Resources:
           FromPort: 3306
           ToPort: 3306
           SourceSecurityGroupId: !Ref MyEC2SG
-
-  #ALBSG----------------------------------------------------------------------
-  MyALBSG:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      VpcId: !ImportValue MyVPC
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 80
-          ToPort: 80
-          CidrIp: 0.0.0.0/0
-      Tags:
-        - Key: Name
-          Value: !Ref MyALBSG
 
 Outputs:
   #output-------------------------------------------------------------------
