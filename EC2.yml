@@ -8,19 +8,19 @@ Parameters:
   EC2Name: RaiseTech-EC2
    Type: String
    Default:
-   
+
   EC2ImageId: 
     Type: AWS::SSM::Parameter::Value
     Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
-  
+
   EC2InstanceType:
     Type: String
     Default: t2.micro
-  
+
   EC2AZ:
     Type: AWS::EC2::AvailabilityZone::Name
     Default: ap-northeast-1a
- 
+
 Resources:
   #EC2KeyPair---------------------------------------------------------------
   MyKeyPair:
@@ -28,7 +28,7 @@ Resources:
     Properties:
       KeyName: KeyPair-MyEC2
 
-  
+
   #EC2----------------------------------------------------------------------
   MyEC2:
     Type: AWS::EC2::Instance
@@ -48,14 +48,22 @@ Resources:
       Tags:
        - Key: Name
          Value: !Ref EC2Name
-  
-  
+
+
 Outputs:
 　#output-------------------------------------------------------------------
   MyEC2:
     Value: !Ref MyEC2
     Export:
       Name: !Ref EC2Name
-  
-  
- 
+
+  MyRDSSG:
+    Value: !Ref MyRDSSG
+    Export:
+      Name: !Ref RDSSGName
+
+  MyALBSG:
+    Value: !Ref MyALBSG
+    Export:
+      Name: !Ref ALBSGName
+
