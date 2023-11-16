@@ -57,13 +57,4 @@ Outputs:
     Export:
       Name: !Ref EC2Name
 
-  MyRDSSG:
-    Value: !Ref MyRDSSG
-    Export:
-      Name: !Ref RDSSGName
-
-  MyALBSG:
-    Value: !Ref MyALBSG
-    Export:
-      Name: !Ref ALBSGName
 

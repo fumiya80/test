@@ -37,7 +37,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
-          SourceSecurityGroupId: !Ref ALBSecurityGroup   #このセキュリティグループとの通信は許可する
+          SourceSecurityGroupId: !Ref ALBSecurityGroup  #このセキュリティグループとの通信は許可する
 
 
   #RDSSG----------------------------------------------------------------------
@@ -56,9 +56,9 @@ Resources:
   #ALBSG----------------------------------------------------------------------
   MyALBSG:
     Type: AWS::EC2::SecurityGroup
-    Properties: 
+    Properties:
       VpcId: !ImportValue MyVPC
-      SecurityGroupIngress: 
+      SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
