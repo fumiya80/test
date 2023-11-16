@@ -1,8 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: lecture10-SecurityGroup-template
 
-
-
 Parameters:
   MyIP:
     Description: IP address allowed to access EC2
@@ -21,7 +19,6 @@ Parameters:
     Type: String
     Default: "RaiseTech-ALBSG"
 
-
 Resources:
   #EC2SG----------------------------------------------------------------------
   MyEC2SG:
@@ -39,7 +36,6 @@ Resources:
           ToPort: 80
           SourceSecurityGroupId: !Ref ALBSecurityGroup  #このセキュリティグループとの通信は許可する
 
-
   #RDSSG----------------------------------------------------------------------
   MyRDSSG:
     Type: AWS::EC2::SecurityGroup
@@ -51,7 +47,6 @@ Resources:
           FromPort: 3306
           ToPort: 3306
           SourceSecurityGroupId: !Ref MyEC2SG
-
 
   #ALBSG----------------------------------------------------------------------
   MyALBSG:
@@ -67,9 +62,8 @@ Resources:
         - Key: Name
           Value: !Ref MyALBSG
 
-
 Outputs:
-　# output-------------------------------------------------------------------
+  #output-------------------------------------------------------------------
   EC2SG:
     Value: !Ref MyEC2SG
     Export:
@@ -79,7 +73,6 @@ Outputs:
     Value: !Ref MyRDSSG
     Export:
       Name: !Ref RDSSGName
-
 
   ALBSG:
     Value: !Ref MyALBSG
