@@ -13,11 +13,11 @@ Parameters:
     Type: String
     Default: "RaiseTech-EC2SG"
 
-  RDSSGName: 
+  RDSSGName:
     Type: String
     Default: "RaiseTech-RDSSG"
-    
-  ALBSGName: 
+
+  ALBSGName:
     Type: String
     Default: "RaiseTech-ALBSG"
 
@@ -63,7 +63,7 @@ Resources:
           FromPort: 80
           ToPort: 80
           CidrIp: 0.0.0.0/0
-      Tags: 
+      Tags:
         - Key: Name
           Value: !Ref MyALBSG
 
