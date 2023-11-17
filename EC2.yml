@@ -2,7 +2,6 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: lecture10-EC2-template
 
 
-
 Parameters:
   #EC2----------------------------------------------------------------------
   EC2Name:
@@ -33,15 +32,15 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       AvailabilityZone: !Ref EC2AZ
-      ImageId: !Ref EC2ImageId　　　　　　　　　　　 #AMIを選択
+      ImageId: !Ref EC2ImageId  #AMIを選択
       InstanceType: !Ref EC2InstanceType
       KeyName: !Ref MyKeyPair
       Monitoring: false
       NetworkInterfaces:
       　- SecurityGroupIds: !ImportValue RaiseTech-EC2SG
           SubnetId: !ImportValue RaiseTech-PublicSubnet1
-          DisableApiTermination: false　　　　　　　 #インスタンスの終了防止
-          AssociatePublicIpAddress: true　　　　　   #インスタンスにIPアドレスを割り当てる
+          DisableApiTermination: false  #インスタンスの終了防止
+          AssociatePublicIpAddress: true  #インスタンスにIPアドレスを割り当てる
           DeviceIndex: "0"
       IamInstanceProfile: !Ref MyEC2InstanceProfile  #IAMroleを付与
       Tags:
@@ -54,5 +53,3 @@ Outputs:
     Value: !Ref MyEC2
     Export:
       Name: !Ref EC2Name
-
-
