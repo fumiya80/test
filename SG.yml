@@ -24,7 +24,7 @@ Resources:
   MyALBSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      VpcId: !ImportValue MyVPC
+      VpcId: !ImportValue RaiseTech-VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 80
