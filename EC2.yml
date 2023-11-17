@@ -37,18 +37,18 @@ Resources:
       KeyName: !Ref MyKeyPair
       Monitoring: false
       NetworkInterfaces:
-      　- SecurityGroupIds: !ImportValue RaiseTech-EC2SG
+        - SecurityGroupIds: !ImportValue RaiseTech-EC2SG
           SubnetId: !ImportValue RaiseTech-PublicSubnet1
           DisableApiTermination: true #インスタンスの終了防止
           AssociatePublicIpAddress: true #インスタンスにIPアドレスを割り当てる
           DeviceIndex: "0"
-      IamInstanceProfile: !Ref MyEC2InstanceProfile  #IAMroleを付与
+      IamInstanceProfile: !Ref MyEC2InstanceProfile #IAMroleを付与
       Tags:
-       - Key: Name
-         Value: !Ref EC2Name
+        - Key: Name
+          Value: !Ref EC2Name
 
 Outputs:
-　#output-------------------------------------------------------------------
+  #output-------------------------------------------------------------------
   MyEC2:
     Value: !Ref MyEC2
     Export:
