@@ -32,7 +32,7 @@ Parameters:
     Description: Input a Public Subnet name. This Parameter will be a Name tag.
     Type: String
     Default: "RaiseTech-PublicSubnet1"
-    
+
   AZ2:
     Description: Input a AZ where Public Subnet will be created.
     Type: AWS::EC2::AvailabilityZone::Name
@@ -45,7 +45,7 @@ Parameters:
     Description: Input a Public Subnet name. This Parameter will be a Name tag.
     Type: String
     Default: "RaiseTech-PublicSubnet2"
-    
+
   #privatesubnet------------------------------------------------------------
   AZ3:
     Description: Input a AZ where Private Subnet will be created.
@@ -72,28 +72,24 @@ Parameters:
     Description: Input a Private Subnet name. This Parameter will be a Name tag.
     Type: String
     Default: "RaiseTech-PrivateSubnet2"
-  
+
   #PublicRouteTable------------------------------------------------------------
   PublicRouteTableName:
     Description: Input a RouteTable name. This Parameter will be a Name tag.
     Type: String
     Default: "RaiseTech-PublicRouteTable"
 
-
   #PrivateRouteTable------------------------------------------------------------
   PrivateRouteTable1Name:
     Description: Input a RouteTable name. This Parameter will be a Name tag.
     Type: String
     Default: "RaiseTech-PrivateRouteTable1"
-    
+
   PrivateRouteTable2Name:
     Description: Input a RouteTable name. This Parameter will be a Name tag.
     Type: String
     Default: "RaiseTech-PrivateRouteTable2"
-  
-  
-  
-  
+
 Resources:
   #vpc----------------------------------------------------------------------
   MyVPC:
@@ -119,7 +115,7 @@ Resources:
     Properties:
       InternetGatewayId: !Ref MyInternetGW
       VpcId: !Ref MyVPC
-      
+
   #publicsubnet-------------------------------------------------------------   
   MyPublicSubnet1:
     Type: AWS::EC2::Subnet
@@ -131,7 +127,7 @@ Resources:
         - Key: Name
           Value: !Ref PublicSubnet1Name
       VpcId: !Ref MyVPC
-      
+
   MyPublicSubnet2:
     Type: AWS::EC2::Subnet
     Properties:
@@ -142,7 +138,7 @@ Resources:
         - Key: Name
           Value: !Ref PublicSubnet2Name
       VpcId: !Ref MyVPC
-  
+
   #privatesubnet------------------------------------------------------------
   MyPrivateSubnet1:
     Type: AWS::EC2::Subnet
@@ -154,7 +150,7 @@ Resources:
         - Key: Name
           Value: !Ref PrivateSubnet1Name
       VpcId: !Ref MyVPC
-      
+
   MyPrivateSubnet2:
     Type: AWS::EC2::Subnet
     Properties:
@@ -181,19 +177,19 @@ Resources:
       DestinationCidrBlock: 0.0.0.0/0
       GatewayId: !Ref MyInternetGW
       RouteTableId: !Ref MyPublicRouteTable
-      
+
   MyPublicSubnet1RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId: !Ref MyPublicRouteTable
       SubnetId: !Ref MyPublicSubnet1
-      
+
   MyPublicSubnet2RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId: !Ref MyPublicRouteTable
       SubnetId: !Ref MyPublicSubnet2
-      
+
   #Privateroutetable----------------------------------------------------------
   MyPrivateRouteTable1:
     Type: AWS::EC2::RouteTable
@@ -202,7 +198,7 @@ Resources:
         - Key: Name
           Value: !Ref PrivateRouteTable1Name
       VpcId: !Ref MyVPC
-      
+
   MyPrivateRouteTable2:
     Type: AWS::EC2::RouteTable
     Properties:
@@ -210,13 +206,13 @@ Resources:
         - Key: Name
           Value: !Ref PrivateRouteTable2Name
       VpcId: !Ref MyVPC
-  
+
   MyPrivateSubnet1RouteTable1Association:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId: !Ref MyPrivateRouteTable1
       SubnetId: !Ref MyPrivateSubnet1
-      
+
   MyPrivateSubnet2RouteTable2Association:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
@@ -229,7 +225,7 @@ Outputs:
     Value: !Ref MyVPC
     Export:
       Name: !Ref VpcName
-  
+
   MyPublicSubnet1:
    Value: !Ref MyPublicSubnet1
    Export:
@@ -255,4 +251,4 @@ Outputs:
     Export:
       Name: !Ref PublicRouteTableName
 
-  
+
