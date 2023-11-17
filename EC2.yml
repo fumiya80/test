@@ -5,21 +5,21 @@ Description: lecture10-EC2-template
 
 Parameters:
   #EC2----------------------------------------------------------------------
-  EC2Name: RaiseTech-EC2
+  EC2Name:
    Type: String
-   Default:
+   Default: "RaiseTech-EC2"
 
-  EC2ImageId: 
+  EC2ImageId:
     Type: AWS::SSM::Parameter::Value
     Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
 
   EC2InstanceType:
     Type: String
-    Default: t2.micro
+    Default: "t2.micro"
 
   EC2AZ:
     Type: AWS::EC2::AvailabilityZone::Name
-    Default: ap-northeast-1a
+    Default: "ap-northeast-1a"
 
 Resources:
   #EC2KeyPair---------------------------------------------------------------
@@ -27,7 +27,6 @@ Resources:
     Type: AWS::EC2::KeyPair
     Properties:
       KeyName: KeyPair-MyEC2
-
 
   #EC2----------------------------------------------------------------------
   MyEC2:
@@ -39,8 +38,8 @@ Resources:
       KeyName: !Ref MyKeyPair
       Monitoring: false
       NetworkInterfaces:
-      　- SecurityGroupIds: !ImportValue MyEC2SG
-          SubnetId: !ImportValue MyPublicSubnet1
+      　- SecurityGroupIds: !ImportValue RaiseTech-EC2SG
+          SubnetId: !ImportValue RaiseTech-PublicSubnet1
           DisableApiTermination: false　　　　　　　 #インスタンスの終了防止
           AssociatePublicIpAddress: true　　　　　   #インスタンスにIPアドレスを割り当てる
           DeviceIndex: "0"
@@ -48,7 +47,6 @@ Resources:
       Tags:
        - Key: Name
          Value: !Ref EC2Name
-
 
 Outputs:
 　#output-------------------------------------------------------------------
