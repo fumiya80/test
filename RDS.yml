@@ -25,10 +25,14 @@ Resources:
   MyRDSSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
     Properties:
+      GroupDescription: "RDSSubnetGroup"
       DBSubnetGroupName: !Ref RDSSubnetGroupName
       SubnetIds:
         - !ImportValue RaiseTech-PrivateSubnet1
         - !ImportValue RaiseTech-PrivateSubnet2
+      Tags:
+        - Key: Name
+          Value: !Ref RDSSubnetGroupName
 
   #RDS----------------------------------------------------------------------
   MyRDS:
