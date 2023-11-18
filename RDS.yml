@@ -2,28 +2,34 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: lecture10-RDS-template
 
 
-
 Parameters:
   #RDS----------------------------------------------------------------------
-  RDSName: RaiseTech-RDS
+  RDSName:
    Type: String
-   Default:
-  
+   Default: "RaiseTech-RDS"
+
   RDSAZ:
     Type: AWS::EC2::AvailabilityZone::Name
-    Default: ap-northeast-1a
-  
-  RDSMasterUserPassword: 
-    Type: String
-    Default: adminadmin
-  
-  RDSSubnetGroupName: RaiseTech-RDSSubnetGroup
-   Type: String
-   Default:
+    Default: "ap-northeast-1a"
 
-    
- 
+  RDSMasterUserPassword:
+    Type: String
+    Default: "adminadmin"
+
+  RDSSubnetGroupName:
+   Type: String
+   Default: "RaiseTech-RDSSubnetGroup"
+
 Resources:
+  #RDSubnetgroup------------------------------------------------------------
+  MyRDSSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupName: !Ref RDSSubnetGroupName
+      SubnetIds:
+        - !ImportValue MyPrivateSubnet1
+        - !ImportValue MyPrivateSubnet2
+
   #RDS----------------------------------------------------------------------
   MyRDS:
    Type: AWS::RDS::DBInstance
@@ -32,7 +38,7 @@ Resources:
    Properties:
      AvailabilityZone: !Ref RDSAZ
      DBInstanceIdentifier: !Ref RDSName   　　　　         #RDSの名前
-     DBSubnetGroupName: !Ref RDSSubnetGroup
+     DBSubnetGroupName: !Ref MyRDSSubnetGroup
      DBInstanceClass: db.t2.micro
      AllocatedStorage: 20
      Engine: mysql
@@ -44,29 +50,14 @@ Resources:
      DeletionProtection: false　　　　　　　　　　　　     #削除保護
      PubliclyAccessible: false
      MultiAZ: false
-     VPCSecurityGroups: 
-       - !ImportValue RDSSG
+     GroupSet:
+       - !ImportValue RaiseTech-RDSSG
      Tags:
        - Key: Name
-         Value: !Ref RDSName 
-         
-         
+         Value: !Ref RDSName
 
-  #RDSubnetgroup------------------------------------------------------------
-  RDSSubnetGroup: 
-    Type: AWS::RDS::DBSubnetGroup
-    Properties: 
-      DBSubnetGroupName: !Ref RDSSubnetGroupName
-      SubnetIds:
-        - !ImportValue MyPrivateSubnet1
-        - !ImportValue MyPrivateSubnet2
-  
-  
 Outputs:
   MyRDS:
     Value: !Ref MyRDS
     Export:
-      Name: !Ref RDSName 
- 
- 
- 
+      Name: !Ref RDSName
