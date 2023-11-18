@@ -42,7 +42,7 @@ Resources:
    Properties:
      AvailabilityZone: !Ref RDSAZ
      DBInstanceIdentifier: !Ref RDSName
-     GroupSet:
+     VPCSecurityGroups:
        - !ImportValue RaiseTech-RDSSG
      DBSubnetGroupName: !Ref MyRDSSubnetGroup
      DBInstanceClass: db.t2.micro
