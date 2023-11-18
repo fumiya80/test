@@ -39,8 +39,3 @@ Outputs:
     Value: !Ref MyEC2InstanceProfile
     Export:
       Name: !Ref MyEC2InstanceProfileName
-
-
-  
-  
- 
