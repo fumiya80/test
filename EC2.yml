@@ -37,7 +37,8 @@ Resources:
       KeyName: !Ref MyKeyPair
       Monitoring: false
       NetworkInterfaces:
-        - GroupSet: !ImportValue RaiseTech-EC2SG
+        - GroupSet:
+            - !ImportValue RaiseTech-EC2SG
           SubnetId: !ImportValue RaiseTech-PublicSubnet1
           AssociatePublicIpAddress: true #インスタンスにIPアドレスを割り当てる
           DeviceIndex: "0"
