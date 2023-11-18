@@ -37,7 +37,7 @@ Resources:
     Properties:
       VpcId: !ImportValue RaiseTech-VPC
       IpAddressType: ipv4
-      Protocol: HTTP　　　　　　　　　　　　　　　　 #ヘルスチェックを行う際のプロトコル
+      Protocol: HTTP  #ヘルスチェックを行う際のプロトコル
       ProtocolVersion: HTTP1
       Port: 80
       TargetType: instance
@@ -47,7 +47,7 @@ Resources:
       HealthCheckEnabled: true                        #ヘルスチェック有効化
       HealthCheckIntervalSeconds: 60                  #ヘルスチェックの間隔
       HealthCheckPath: /
-      HealthCheckPort: traffic-port　　　　　　　　　 #ヘルスチェックを行う際に使用するポート
+      HealthCheckPort: traffic-port  #ヘルスチェックを行う際に使用するポート
       HealthCheckProtocol: HTTP
       HealthCheckTimeoutSeconds: 5
       HealthyThresholdCount: 3
