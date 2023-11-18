@@ -53,7 +53,6 @@ Resources:
      MasterUserPassword: !Ref RDSMasterUserPassword
      CopyTagsToSnapshot: false                             #スナップショットにタグを関連付ける
      DeleteAutomatedBackups: true                          #RDS削除時に生成されるスナップショットの削除
-     DeletionProtection: false　　　　　　　　　　　　     #削除保護
      PubliclyAccessible: false
      MultiAZ: false
      Tags:
