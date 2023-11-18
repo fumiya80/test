@@ -4,9 +4,9 @@ Description: lecture10-S3Accesslole-template
 
 
 Parameters:
-  MyEC2InstanceProfileName: RaiseTech-EC2InstanceProfile
+  MyEC2InstanceProfileName:
     Type: String
-    Default:
+    Default: "RaiseTech-EC2InstanceProfile"
 
 Resources:
   #IAMRole------------------------------------------------------------------
