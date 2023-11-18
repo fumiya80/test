@@ -32,7 +32,7 @@ Resources:
           Value: !Ref ALBName
 
   #TargetGroup--------------------------------------------------------------
-  TargetGroup:
+  MyTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       VpcId: !ImportValue RaiseTech-VPC
