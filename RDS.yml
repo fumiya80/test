@@ -37,7 +37,7 @@ Resources:
    UpdateReplacePolicy: Delete
    Properties:
      AvailabilityZone: !Ref RDSAZ
-     DBInstanceIdentifier: !Ref RDSName   　　　　         #RDSの名前
+     DBInstanceIdentifier: !Ref RDSName
      GroupSet:
        - !ImportValue RaiseTech-RDSSG
      DBSubnetGroupName: !Ref MyRDSSubnetGroup
