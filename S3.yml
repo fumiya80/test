@@ -1,13 +1,11 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: lecture10-S3-template
 
-
-
 Parameters:
   #S3----------------------------------------------------------------------
-  S3Name: RaiseTech-S3
+  S3Name: 
    Type: String
-   Default:
+   Default: "raisetech-s3-231118"
 
 Resources:
   #S3----------------------------------------------------------------------
@@ -24,13 +22,10 @@ Resources:
       Tags:
         - Key: Name
           Value: !Ref S3Name
-  
+
 Outputs:
-　#output-------------------------------------------------------------------
+  #output-------------------------------------------------------------------
   MyS3:
     Value: !Ref MyS3
     Export:
       Name: !Ref S3Name
-  
-  
- 

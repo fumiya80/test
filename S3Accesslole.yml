@@ -2,15 +2,11 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: lecture10-S3Accesslole-template
 
 
-
 Parameters:
-  
-  MyEC2InstanceProfileName: RaiseTech-EC2InstanceProfile
+  MyEC2InstanceProfileName:
     Type: String
-    Default:
+    Default: "RaiseTech-EC2InstanceProfile"
 
- 
- 
 Resources:
   #IAMRole------------------------------------------------------------------
   MyS3AccessRole:
@@ -20,34 +16,26 @@ Resources:
         Version: 2012-10-17
         Statement: 
           - Effect: Allow
-            Principal: 
-              Service: 　　　　　　　                 #許可の対象  
+            Principal:
+              Service:  #許可の対象  
                 - ec2.amazonaws.com
-            Action: 
+            Action:
               - sts:AssumeRole
       Path: /
-      ManagedPolicyArns:      　　　　                #IAMポリシーを選択                  
+      ManagedPolicyArns:  #IAMポリシーを選択                  
         - arn:aws:iam::aws:policy/AmazonS3FullAccess
 
-
   #InstanceProfile------------------------------------------------------------------
-  MyEC2InstanceProfile:            　                 #EC2とIAMroleを紐づけに必要。                 
+  MyEC2InstanceProfile:  #EC2とIAMroleを紐づけに必要。                 
     Type: AWS::IAM::InstanceProfile
-    Properties: 
+    Properties:
       Path: /
-      Roles: 
+      Roles:
         - !Ref MyS3AccessRole
-  
-
 
 Outputs:
-　#output-------------------------------------------------------------------
+  #output-------------------------------------------------------------------
   MyEC2InstanceProfile:
     Value: !Ref MyEC2InstanceProfile
     Export:
       Name: !Ref MyEC2InstanceProfileName
-
-
-  
-  
- 
