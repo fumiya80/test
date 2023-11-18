@@ -27,8 +27,8 @@ Resources:
     Properties:
       DBSubnetGroupName: !Ref RDSSubnetGroupName
       SubnetIds:
-        - !ImportValue MyPrivateSubnet1
-        - !ImportValue MyPrivateSubnet2
+        - !ImportValue RaiseTech-PrivateSubnet1
+        - !ImportValue RaiseTech-PrivateSubnet2
 
   #RDS----------------------------------------------------------------------
   MyRDS:
@@ -38,6 +38,8 @@ Resources:
    Properties:
      AvailabilityZone: !Ref RDSAZ
      DBInstanceIdentifier: !Ref RDSName   　　　　         #RDSの名前
+     GroupSet:
+       - !ImportValue RaiseTech-RDSSG
      DBSubnetGroupName: !Ref MyRDSSubnetGroup
      DBInstanceClass: db.t2.micro
      AllocatedStorage: 20
@@ -50,8 +52,6 @@ Resources:
      DeletionProtection: false　　　　　　　　　　　　     #削除保護
      PubliclyAccessible: false
      MultiAZ: false
-     GroupSet:
-       - !ImportValue RaiseTech-RDSSG
      Tags:
        - Key: Name
          Value: !Ref RDSName
