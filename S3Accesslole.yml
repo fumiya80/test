@@ -1,8 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: lecture10-S3Accesslole-template
 
-
-
 Parameters:
   MyEC2InstanceProfileName:
     Type: String
