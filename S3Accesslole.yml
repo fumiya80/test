@@ -34,7 +34,7 @@ Resources:
         - !Ref MyS3AccessRole
 
 Outputs:
-　#output-------------------------------------------------------------------
+  #output-------------------------------------------------------------------
   MyEC2InstanceProfile:
     Value: !Ref MyEC2InstanceProfile
     Export:
