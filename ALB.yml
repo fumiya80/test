@@ -49,8 +49,8 @@ Resources:
       HealthCheckPath: /
       HealthCheckPort: traffic-port　　　　　　　　　 #ヘルスチェックを行う際に使用するポート
       HealthCheckProtocol: HTTP
-      HealthCheckTimeoutSeconds: 5　　　　　　　　　　#応答を待つ時間、これを過ぎると失敗
-      HealthyThresholdCount: 3　　　　　　　　　　　　#ヘルシーと判断するヘルスチェック回数
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 3
       UnhealthyThresholdCount: 3
       Matcher:
         HttpCode: 200
