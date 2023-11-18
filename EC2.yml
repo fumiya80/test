@@ -39,7 +39,6 @@ Resources:
       NetworkInterfaces:
         - SecurityGroupIds: !ImportValue RaiseTech-EC2SG
           SubnetId: !ImportValue RaiseTech-PublicSubnet1
-          DisableApiTermination: false #インスタンスの終了防止
           AssociatePublicIpAddress: true #インスタンスにIPアドレスを割り当てる
           DeviceIndex: "0"
       IamInstanceProfile: !ImportValue RaiseTech-EC2InstanceProfile #IAMroleを付与
