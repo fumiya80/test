@@ -24,6 +24,7 @@ Resources:
   MyALBSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
+      GroupName: !Ref ALBSGName
       VpcId: !ImportValue RaiseTech-VPC
       GroupDescription: "Allow incoming traffic on port 80"
       SecurityGroupIngress:
