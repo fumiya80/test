@@ -5,19 +5,27 @@ Parameters:
   MyIP:
     Description: IP address allowed to access EC2
     Type: String
+    Default: "60.147.36.53/32"
 
-  NameBase:
-    Description: this is base name.
+  EC2SGName:
     Type: String
-    Default: "RaiseTech"
+    Default: "RaiseTech-EC2SG"
+
+  RDSSGName:
+    Type: String
+    Default: "RaiseTech-RDSSG"
+
+  ALBSGName:
+    Type: String
+    Default: "RaiseTech-ALBSG"
 
 Resources:
   #ALBSG----------------------------------------------------------------------
   MyALBSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: !Sub "${NameBase}-ALBSG"
-      VpcId: !ImportValue RaiseTech-VPC-ID
+      GroupName: !Ref ALBSGName
+      VpcId: !ImportValue RaiseTech-VPC
       GroupDescription: "Allow incoming traffic on port 80"
       SecurityGroupIngress:
         - IpProtocol: tcp
@@ -26,14 +34,14 @@ Resources:
           CidrIp: 0.0.0.0/0
       Tags:
         - Key: Name
-          Value: !Sub "${NameBase}-ALBSG"
+          Value: !Ref ALBSGName
 
   #EC2SG----------------------------------------------------------------------
   MyEC2SG:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: !Sub "${NameBase}-EC2SG"
-      VpcId: !ImportValue RaiseTech-VPC-ID
+      GroupName: !Ref EC2SGName
+      VpcId: !ImportValue RaiseTech-VPC
       GroupDescription: "Allow incoming SSH and HTTP traffic"
       SecurityGroupIngress:
         - IpProtocol: tcp
@@ -49,8 +57,8 @@ Resources:
   MyRDSSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: !Sub "${NameBase}-RDSSG"
-      VpcId: !ImportValue RaiseTech-VPC-ID
+      GroupName: !Ref RDSSGName
+      VpcId: !ImportValue RaiseTech-VPC
       GroupDescription: "Allow incoming traffic on port 3306"
       SecurityGroupIngress:
         - IpProtocol: tcp
@@ -63,15 +71,15 @@ Outputs:
   EC2SG:
     Value: !Ref MyEC2SG
     Export:
-      Name: !Sub "${NameBase}-EC2SG-ID"
+      Name: !Ref EC2SGName
 
   RDSSG:
     Value: !Ref MyRDSSG
     Export:
-      Name: !Sub "${NameBase}-RDSSG-ID"
+      Name: !Ref RDSSGName
 
   ALBSG:
     Value: !Ref MyALBSG
     Export:
-      Name: !Sub "${NameBase}-ALBSG-ID"
+      Name: !Ref ALBSGName
 
