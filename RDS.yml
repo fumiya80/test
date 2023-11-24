@@ -34,7 +34,7 @@ Resources:
    UpdateReplacePolicy: Delete
    Properties:
      AvailabilityZone: !Ref RDSAZ
-     DBInstanceIdentifier: !Sub "${NameBase}-RDS"
+     DBInstanceIdentifier: !Sub "${NameBase}-RDS1"
      VPCSecurityGroups:
        - !ImportValue RaiseTech-RDSSG-ID
      DBSubnetGroupName: !Ref MyRDSSubnetGroup
