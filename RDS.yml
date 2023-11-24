@@ -21,8 +21,8 @@ Resources:
       DBSubnetGroupDescription: "RDSSubnetGroup"
       DBSubnetGroupName: !Sub "${NameBase}-SubnetGroup"
       SubnetIds:
-        - !ImportValue RaiseTech-PrivateSubnet1-ID
-        - !ImportValue RaiseTech-PrivateSubnet2-ID
+        - !ImportValue RaiseTech-MyPrivateSubnet1-ID
+        - !ImportValue RaiseTech-MyPrivateSubnet2-ID
       Tags:
         - Key: Name
           Value: !Sub "${NameBase}-SubnetGroup"

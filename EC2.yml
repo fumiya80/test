@@ -40,7 +40,7 @@ Resources:
       NetworkInterfaces:
         - GroupSet:
             - !ImportValue RaiseTech-EC2SG-ID
-          SubnetId: !ImportValue RaiseTech-PublicSubnet1-ID
+          SubnetId: !ImportValue RaiseTech-MyPublicSubnet1-ID
           AssociatePublicIpAddress: true #インスタンスにIPアドレスを割り当てる
           DeviceIndex: "0"
       IamInstanceProfile: !ImportValue RaiseTech-EC2InstanceProfile-ID #IAMroleを付与
