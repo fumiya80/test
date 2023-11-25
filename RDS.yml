@@ -43,7 +43,7 @@ Resources:
      Engine: mysql
      StorageType: gp2
      MasterUsername: admin
-     MasterUserPassword: "arn:aws:ssm:ap-northeast-1:997663452536:parameter/RaiseTech-RDS-password"
+     MasterUserPassword: "{{resolve:ssm-secure:RaiseTech-RDS-password:1}}" # SSM ParameterのSecureStringパスワードを参照
      CopyTagsToSnapshot: false                             #スナップショットにタグを関連付ける
      DeleteAutomatedBackups: true                          #RDS削除時に生成されるスナップショットの削除
      PubliclyAccessible: false
