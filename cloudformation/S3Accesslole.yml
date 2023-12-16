@@ -3,9 +3,10 @@ Description: lecture10-S3Accesslole-template
 
 
 Parameters:
-  MyEC2InstanceProfileName:
+  NameBase:
+    Description: this is base name.
     Type: String
-    Default: "RaiseTech-EC2InstanceProfile"
+    Default: "RaiseTech"
 
 Resources:
   #IAMRole------------------------------------------------------------------
@@ -38,4 +39,4 @@ Outputs:
   MyEC2InstanceProfile:
     Value: !Ref MyEC2InstanceProfile
     Export:
-      Name: !Ref MyEC2InstanceProfileName
+      Name: !Sub "${NameBase}-S3AccessRole-name"
