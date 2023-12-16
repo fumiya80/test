@@ -1,0 +1,45 @@
+---
+- name: git clone app
+  become_user: root
+  git: 
+    repo: https://github.com/yuta-ushijima/raisetech-live8-sample-app.git
+    dest: "{{ sample_app_dir }}"
+    force: yes
+  register: git_clone
+
+- name: change owner /var/www/raisetech-live8-sample-app
+  become_user: root
+  file:
+    path: "{{ sample_app_dir }}"
+    state: directory
+    owner: ec2-user
+    recurse: yes
+  when: git_clone.changed
+
+- name: Copy configuration files
+  become_user: root
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ app_directory }}/config/{{ item.dest }}"
+  loop:
+    - { src: 'database.yml.j2', dest: 'database.yml' }
+    - { src: 'development.rb.j2', dest: 'environments/development.rb' }
+    - { src: 'storage.yml.j2', dest: 'storage.yml' }
+    - { src: 'unicorn.rb.j2', dest: 'unicorn.rb' }
+
+
+
+
+#- name: copy database.yml.sample
+#  ansible.builtin.copy:
+#    src: {{ sample_app_dir }}/config/database.yml.sample
+#    dest: {{ sample_app_dir }}/config/database.yml
+
+#- name: edit database.yml
+#  become_user: root
+#  ansible.builtin.lineinfile:
+#    path: "{{ sample_app_dir }}/config/database.yml"
+#    regexp: 
+#    line:
+
+
