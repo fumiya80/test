@@ -18,7 +18,7 @@ jobs:
           command: |
             cfn-lint -i W3002 -t cloudformation/*.yml
 
-  cloudformation-execute:
+  cfn-execute:
     executor: aws-cli/default
     steps:
       - checkout
@@ -36,28 +36,53 @@ jobs:
           aws cloudformation deploy --stack-name lecture13-RDS --template-file  cloudformation/RDS.yml
           aws cloudformation deploy --stack-name lecture13-ALB --template-file  cloudformation/ALB.yml
           aws cloudformation deploy --stack-name lecture13-S3 --template-file  cloudformation/S3.yml
+          aws cloudformation describe-stacks --stack-name lecture13-EC2 --query 'Stacks[].Outputs[1].OutputValue' --output text > /tmp/AWS_EC2_HOST.txt
+          aws cloudformation describe-stacks --stack-name lecture13-ALB --query 'Stacks[].Outputs[1].OutputValue' --output text > /tmp/AWS_ALB_HOST.txt
+          aws cloudformation describe-stacks --stack-name lecture13-RDS --query 'Stacks[].Outputs[1].OutputValue' --output text > /tmp/AWS_DB_HOST.txt
+          aws cloudformation describe-stacks --stack-name lecture13-RDS --query 'Stacks[].Parameters[2].ParameterValue' --output text > /tmp/AWS_DB_USER.txt
+          aws ssm get-parameters --query Parameters[].Value --output text --name RaiseTech-RDS-password1 --with-decryption > /tmp/AWS_DB_PW.txt
+      - persist_to_workspace:
+          root: /tmp
+          paths: AWS*
 
   ansible-execute:
     executor: ansible/default
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp
       - run:
-          name: Copy SSH Config
-          command: cp sshconfig/config ~/.ssh/
+          name: set-env-vars
+          command: |
+            echo "export AWS_EC2_HOST=$(cat /tmp/AWS_EC2_HOST.txt)" >> $BASH_ENV
+            echo "export AWS_ALB_HOST=$(cat /tmp/AWS_ALB_HOST.txt)" >> $BASH_ENV
+            echo "export AWS_DB_HOST=$(cat /tmp/AWS_DB_HOST.txt)" >> $BASH_ENV
+            echo "export AWS_DB_USER=$(cat /tmp/AWS_DB_USER.txt)" >> $BASH_ENV
+            echo "export AWS_DB_PW=$(cat /tmp/AWS_DB_PW.txt)" >> $BASH_ENV      
+      - run:
+          name: set-sshkey
+          command: |
+            echo -e "Host server\n  HostName ${AWS_EC2_HOST}\n  User ec2-user\n  Port 22\n  IdentityFile ~/.ssh/rsa_key\n  StrictHostKeyChecking no" > ~/.ssh/config
       - ansible/install:
           version: 2.9.23
       - ansible/playbook:
           playbook: ansible/playbook.yml
           playbook-options: "-i ansible/inventory"
 
-#  serverspec-execute:
-#    docker:
-#      - image: cimg/ruby:2.7-node
-#    steps:
+  serverspec-execute:
+    executor: ruby/default
+    steps:
       - checkout
+      - attach_workspace:
+          at: /tmp
       - run:
-          name: Copy SSH Config
-          command: cp sshconfig/config ~/.ssh/
+          name: set-env-vars
+          command: |
+            echo "export AWS_EC2_HOST=$(cat /tmp/AWS_EC2_HOST.txt)" >> $BASH_ENV
+      - run:
+          name: set-sshkey
+          command: |
+            echo -e "Host server\n  HostName ${AWS_EC2_HOST}\n  User ec2-user\n  Port 22\n  IdentityFile ~/.ssh/rsa_key\n  StrictHostKeyChecking no" > ~/.ssh/config
       - run:
           name: bundle install
           command: |
@@ -69,6 +94,7 @@ jobs:
           command: |
             cd serverspec
             bundle exec rake spec
+
 workflows:
   raisetech:
     jobs:
