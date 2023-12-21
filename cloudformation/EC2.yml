@@ -54,3 +54,8 @@ Outputs:
     Value: !Ref MyEC2
     Export:
       Name: !Sub "${NameBase}-EC2-ID"
+
+  EC2PublicIP:
+    Value: !GetAtt MyEC2.PublicIp
+    Export:
+      Name: !Sub "${NameBase}-EC2-PublicIP"
