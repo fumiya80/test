@@ -30,7 +30,7 @@ jobs:
           name: deploy Cloudformation
           command: |
             aws cloudformation deploy --stack-name lecture13-vpc --template-file cloudformation/vpc.yml
-            aws cloudformation deploy --stack-name lecture13-SG --template-file cloudformation/SG.yml
+            aws cloudformation deploy --stack-name lecture13-SG --template-file cloudformation/SG.yml --parameter-overrides MyIP="${AWS_MY_IP}"
             aws cloudformation deploy --stack-name lecture13-S3Accesslole --template-file cloudformation/S3Accesslole.yml
             aws cloudformation deploy --stack-name lecture13-EC2 --template-file cloudformation/EC2.yml
             aws cloudformation deploy --stack-name lecture13-RDS --template-file cloudformation/RDS.yml
