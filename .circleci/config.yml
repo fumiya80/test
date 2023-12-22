@@ -29,13 +29,13 @@ jobs:
       - run:
           name: deploy Cloudformation
           command: |
-          aws cloudformation deploy --stack-name lecture13-vpc --template-file  cloudformation/vpc.yml
-          aws cloudformation deploy --stack-name lecture13-SG --template-file  cloudformation/SG.yml
-          aws cloudformation deploy --stack-name lecture13-S3Accesslole --template-file  cloudformation/S3Accesslole.yml
-          aws cloudformation deploy --stack-name lecture13-EC2 --template-file  cloudformation/EC2.yml
-          aws cloudformation deploy --stack-name lecture13-RDS --template-file  cloudformation/RDS.yml
-          aws cloudformation deploy --stack-name lecture13-ALB --template-file  cloudformation/ALB.yml
-          aws cloudformation deploy --stack-name lecture13-S3 --template-file  cloudformation/S3.yml
+          aws cloudformation deploy --stack-name lecture13-vpc --template-file cloudformation/vpc.yml
+          aws cloudformation deploy --stack-name lecture13-SG --template-file cloudformation/SG.yml
+          aws cloudformation deploy --stack-name lecture13-S3Accesslole --template-file cloudformation/S3Accesslole.yml
+          aws cloudformation deploy --stack-name lecture13-EC2 --template-file cloudformation/EC2.yml
+          aws cloudformation deploy --stack-name lecture13-RDS --template-file cloudformation/RDS.yml
+          aws cloudformation deploy --stack-name lecture13-ALB --template-file cloudformation/ALB.yml
+          aws cloudformation deploy --stack-name lecture13-S3 --template-file cloudformation/S3.yml
           aws cloudformation describe-stacks --stack-name lecture13-EC2 --query 'Stacks[].Outputs[1].OutputValue' --output text > /tmp/AWS_EC2_HOST.txt
           aws cloudformation describe-stacks --stack-name lecture13-ALB --query 'Stacks[].Outputs[1].OutputValue' --output text > /tmp/AWS_ALB_HOST.txt
           aws cloudformation describe-stacks --stack-name lecture13-RDS --query 'Stacks[].Outputs[1].OutputValue' --output text > /tmp/AWS_DB_HOST.txt
