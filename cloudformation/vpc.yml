@@ -137,7 +137,7 @@ Resources:
   MyPublicRoute:
     Type: AWS::EC2::Route
     Properties:
-      DestinationCidrBlock: 0.0.0.0/0
+      DestinationCidrBlock: 0.0.0.1/0
       GatewayId: !Ref MyInternetGW
       RouteTableId: !Ref MyPublicRouteTable
 
