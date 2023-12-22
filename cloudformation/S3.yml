@@ -5,7 +5,7 @@ Parameters:
   NameBase:
     Description: this is base name.
     Type: String
-    Default: "RaiseTech"
+    Default: "raisetech"
 
 Resources:
   #S3----------------------------------------------------------------------
