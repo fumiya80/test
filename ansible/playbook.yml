@@ -1,5 +1,4 @@
-- hosts:
-    - server
+- hosts: server
   become: True
   become_user: ec2-user
   roles:
