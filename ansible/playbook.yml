@@ -12,6 +12,7 @@
     - { role: 07_mysql, tags: mysql }
     - { role: 08_app, tags: app }
     - { role: 09_nginx, tags: nginx }
+
   vars:
     sample_app_dir: /var/www/raisetech-live8-sample-app
     aws_alb_host : "{{ (lookup('env','AWS_ALB_HOST')) }}"
