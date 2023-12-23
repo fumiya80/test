@@ -2,10 +2,10 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: lecture10-SecurityGroup-template
 
 Parameters:
-  MyIP:
-    Description: IP address allowed to access EC2
-    Type: String
-
+#  MyIP:
+#    Description: IP address allowed to access EC2
+#    Type: String
+#
   NameBase:
     Description: this is base name.
     Type: String
