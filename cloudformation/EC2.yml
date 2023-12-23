@@ -26,7 +26,7 @@ Resources:
   MyKeyPair:
     Type: AWS::EC2::KeyPair
     Properties:
-      KeyName: !Sub "lecture10-keypair"
+      KeyName: "lecture10-keypair"
 
   #EC2----------------------------------------------------------------------
   MyEC2:
