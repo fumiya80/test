@@ -28,4 +28,3 @@ Outputs:
     Value: !Ref MyS3
     Export:
       Name: !Sub "${NameBase}-s3-name"
-
