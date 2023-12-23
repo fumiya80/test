@@ -25,7 +25,7 @@ Resources:
   MyKeyPair:
     Type: AWS::EC2::KeyPair
     Properties:
-      KeyName: "lecture10-keypair"
+      KeyName: RaiseTech-MyEC2
 
   #EC2----------------------------------------------------------------------
   MyEC2:
