@@ -1,7 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: lecture10-EC2-template
 
-
 Parameters:
   #EC2----------------------------------------------------------------------
   NameBase:
