@@ -26,11 +26,7 @@ Resources:
   MyKeyPair:
     Type: AWS::EC2::KeyPair
     Properties:
-      KeyName: !Sub "${NameBase}-KeyPair"
-      PublicKey:
-        Fn::ImportValue: 
-          !Sub "lecture10-keypair"
-
+      KeyName: !Sub "lecture10-keypair"
 
   #EC2----------------------------------------------------------------------
   MyEC2:
