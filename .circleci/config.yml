@@ -62,7 +62,7 @@ jobs:
       - run:
           name: set-sshkey
           command: |
-            echo -e "Host server\n  HostName ${AWS_ALB_HOST}\n  User ec2-user\n  Port 22\n  IdentityFile ~/.ssh/rsa_key\n  StrictHostKeyChecking no" > ~/.ssh/config
+            echo -e "Host server\n  HostName ${AWS_EC2_HOST}\n  User ec2-user\n  Port 22\n  IdentityFile ~/.ssh/rsa_key\n  StrictHostKeyChecking no" > ~/.ssh/config
       - ansible/install:
           version: 2.9.23
       - ansible/playbook:
