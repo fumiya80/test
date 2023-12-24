@@ -69,9 +69,9 @@ jobs:
       - ansible/install:
           version: 2.10.7
       - ansible/playbook:
-#          playbook: ansible/playbook.yml
+          playbook: ansible/playbook.yml
           playbook-options: '-u ec2-user -i ansible/inventory --private-key /home/ec2-user/environment/.ssh/rsa_key.pem'
-          playbook-options: "-i ansible/inventory"
+#          playbook-options: "-i ansible/inventory"
 #MD5:99:46:aa:1c:cf:97:93:8e:24:cd:85:c1:2b:3a:dd:a6
 
   serverspec-execute:
