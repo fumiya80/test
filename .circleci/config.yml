@@ -64,7 +64,7 @@ jobs:
 #            echo -e "Host server\n  HostName ${AWS_EC2_HOST}\n  User ec2-user\n  Port 22\n  IdentityFile ~/environment/.ssh/rsa_key.pem\n  StrictHostKeyChecking no" > ~/.ssh/config
       - add_ssh_keys:
           fingerprints:
-            - 99:46:aa:1c:cf:97:93:8e:24:cd:85:c1:2b:3a:dd:a6
+            - SHA256:eKrsPLlOkT0zkFuGV5FtO+ujFAVfP1Z98MHKflrR5WI.
       - ansible/install:
           version: 2.9.23
       - ansible/playbook:
