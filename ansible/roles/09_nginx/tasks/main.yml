@@ -1,4 +1,4 @@
-----
+---
 - name: check nginx install
   shell: bash -lc "nginx -v"
   register: check_nginx_installed
@@ -25,6 +25,6 @@
 
 - name: start unicorn
   shell: bash -lc "bundle exec unicorn_rails -c config/unicorn.rb -E development -D"
-  args: 
+  args:
     chdir: "{{ app_home }}"
   when: start_nginx.changed

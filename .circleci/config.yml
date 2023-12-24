@@ -1,6 +1,5 @@
 version: 2.1
 
-
 orbs:
   python: circleci/python@2.0.3
   aws-cli: circleci/aws-cli@4.1.2
@@ -29,18 +28,18 @@ jobs:
       - run:
           name: deploy Cloudformation
           command: |
-          aws cloudformation deploy --stack-name lecture13-vpc --template-file  cloudformation/vpc.yml
-          aws cloudformation deploy --stack-name lecture13-SG --template-file  cloudformation/SG.yml
-          aws cloudformation deploy --stack-name lecture13-S3Accesslole --template-file  cloudformation/S3Accesslole.yml
-          aws cloudformation deploy --stack-name lecture13-EC2 --template-file  cloudformation/EC2.yml
-          aws cloudformation deploy --stack-name lecture13-RDS --template-file  cloudformation/RDS.yml
-          aws cloudformation deploy --stack-name lecture13-ALB --template-file  cloudformation/ALB.yml
-          aws cloudformation deploy --stack-name lecture13-S3 --template-file  cloudformation/S3.yml
-          aws cloudformation describe-stacks --stack-name lecture13-EC2 --query 'Stacks[].Outputs[1].OutputValue' --output text > /tmp/AWS_EC2_HOST.txt
-          aws cloudformation describe-stacks --stack-name lecture13-ALB --query 'Stacks[].Outputs[1].OutputValue' --output text > /tmp/AWS_ALB_HOST.txt
-          aws cloudformation describe-stacks --stack-name lecture13-RDS --query 'Stacks[].Outputs[1].OutputValue' --output text > /tmp/AWS_DB_HOST.txt
-          aws cloudformation describe-stacks --stack-name lecture13-RDS --query 'Stacks[].Parameters[2].ParameterValue' --output text > /tmp/AWS_DB_USER.txt
-          aws ssm get-parameters --query Parameters[].Value --output text --name RaiseTech-RDS-password1 --with-decryption > /tmp/AWS_DB_PW.txt
+            aws cloudformation deploy --stack-name lecture13-vpc --template-file cloudformation/vpc.yml
+            aws cloudformation deploy --stack-name lecture13-SG --template-file cloudformation/SG.yml --parameter-overrides MyIP="${AWS_MY_IP}"
+            aws cloudformation deploy --stack-name lecture13-S3Accesslole --template-file cloudformation/S3Accesslole.yml --capabilities CAPABILITY_IAM
+            aws cloudformation deploy --stack-name lecture13-EC2 --template-file cloudformation/EC2.yml
+            aws cloudformation deploy --stack-name lecture13-RDS --template-file cloudformation/RDS.yml
+            aws cloudformation deploy --stack-name lecture13-ALB --template-file cloudformation/ALB.yml
+            aws cloudformation deploy --stack-name lecture13-S3 --template-file cloudformation/S3.yml
+            aws cloudformation describe-stacks --stack-name lecture13-EC2 --query 'Stacks[].Outputs[1].OutputValue' --output text > /tmp/AWS_EC2_HOST.txt
+            aws cloudformation describe-stacks --stack-name lecture13-ALB --query 'Stacks[].Outputs[1].OutputValue' --output text > /tmp/AWS_ALB_HOST.txt
+            aws cloudformation describe-stacks --stack-name lecture13-RDS --query 'Stacks[].Outputs[1].OutputValue' --output text > /tmp/AWS_DB_HOST.txt
+            aws cloudformation describe-stacks --stack-name lecture13-RDS --query 'Stacks[].Parameters[2].ParameterValue' --output text > /tmp/AWS_DB_USER.txt
+            aws ssm get-parameters --query Parameters[].Value --output text --name RaiseTech-RDS-password1 --with-decryption > /tmp/AWS_DB_PW.txt
       - persist_to_workspace:
           root: /tmp
           paths: AWS*
@@ -58,16 +57,21 @@ jobs:
             echo "export AWS_ALB_HOST=$(cat /tmp/AWS_ALB_HOST.txt)" >> $BASH_ENV
             echo "export AWS_DB_HOST=$(cat /tmp/AWS_DB_HOST.txt)" >> $BASH_ENV
             echo "export AWS_DB_USER=$(cat /tmp/AWS_DB_USER.txt)" >> $BASH_ENV
-            echo "export AWS_DB_PW=$(cat /tmp/AWS_DB_PW.txt)" >> $BASH_ENV      
-      - run:
-          name: set-sshkey
-          command: |
-            echo -e "Host server\n  HostName ${AWS_EC2_HOST}\n  User ec2-user\n  Port 22\n  IdentityFile ~/.ssh/rsa_key\n  StrictHostKeyChecking no" > ~/.ssh/config
+            echo "export AWS_DB_PW=$(cat /tmp/AWS_DB_PW.txt)" >> $BASH_ENV
+#      - run:
+#          name: set-sshkey
+#          command: |
+#            echo -e "Host server\n  HostName ${AWS_EC2_HOST}\n  User ec2-user\n  Port 22\n  IdentityFile ~/environment/.ssh/rsa_key.pem\n  StrictHostKeyChecking no" > ~/.ssh/config
+#      - add_ssh_keys:
+#          fingerprints:
+#            - 90:f2:ce:d1:d1:f0:59:9c:58:db:e1:14:cb:35:5f:6a
       - ansible/install:
-          version: 2.9.23
+          version: 2.10.7
       - ansible/playbook:
           playbook: ansible/playbook.yml
-          playbook-options: "-i ansible/inventory"
+          playbook-options: '-u ec2-user -i ansible/inventory --private-key /home/ec2-user/test/keypair/rsa_key.pem'
+#          playbook-options: "-i ansible/inventory"
+#MD5:99:46:aa:1c:cf:97:93:8e:24:cd:85:c1:2b:3a:dd:a6
 
   serverspec-execute:
     executor: ruby/default
