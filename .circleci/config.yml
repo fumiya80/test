@@ -62,12 +62,16 @@ jobs:
 #          name: set-sshkey
 #          command: |
 #            echo -e "Host server\n  HostName ${AWS_EC2_HOST}\n  User ec2-user\n  Port 22\n  IdentityFile ~/environment/.ssh/rsa_key.pem\n  StrictHostKeyChecking no" > ~/.ssh/config
+      - add_ssh_keys:
+          fingerprints:
+            - 99:46:aa:1c:cf:97:93:8e:24:cd:85:c1:2b:3a:dd:a6
       - ansible/install:
           version: 2.9.23
       - ansible/playbook:
           playbook: ansible/playbook.yml
           playbook-options: '-u ec2-user -i ansible/inventory --private-key ~/environment/.ssh/rsa_key.pem'
 #          playbook-options: "-i ansible/inventory"
+#MD5:99:46:aa:1c:cf:97:93:8e:24:cd:85:c1:2b:3a:dd:a6
 
   serverspec-execute:
     executor: ruby/default
