@@ -45,7 +45,7 @@ jobs:
           paths: AWS*
 
   ansible-execute:
-    executor: ansible-playbook/default
+    executor: ansible/default
     steps:
       - checkout
       - attach_workspace:
