@@ -68,32 +68,40 @@ jobs:
           playbook-options: '-u ec2-user -i ansible/inventory --private-key /home/ec2-user/.ssh/id_rsa'
 
   serverspec-execute:
-#    executor: ruby/default
-    docker:
-      - image: cimg/ruby:2.7-node
+    executor: ruby/default
     steps:
-      - checkout
-      - attach_workspace:
-          at: /tmp
-      - run:
-          name: set-env-vars
-          command: |
-            echo "export AWS_EC2_HOST=$(cat /tmp/AWS_EC2_HOST.txt)" >> $BASH_ENV
-      - run:
-          name: set-sshkey
-          command: |
-            echo -e "Host server\n  HostName ${AWS_EC2_HOST}\n  User ec2-user\n  Port 22\n  IdentityFile /home/ec2-user/.ssh/id_rsa\n  StrictHostKeyChecking no" > ~/.ssh/config
-      - run:
-          name: bundle install
-          command: |
-            cd serverspec
-            gem list -e rails
-            bundle install --path vendor/bundle
-      - run:
-          name: execute
-          command: |
-            cd serverspec
-            bundle exec rake spec
+    - checkout
+    - ruby/install-deps:
+        app-dir: serverspec
+    - run: |
+        cd serverspec
+        bundle exec rake spec
+#    executor: ruby/default
+#    docker:
+#      - image: cimg/ruby:2.7-node
+#    steps:
+#      - checkout
+#      - attach_workspace:
+#          at: /tmp
+#      - run:
+#          name: set-env-vars
+#          command: |
+#           echo "export AWS_EC2_HOST=$(cat /tmp/AWS_EC2_HOST.txt)" >> $BASH_ENV
+#      - run:
+#          name: set-sshkey
+#          command: |
+#            echo -e "Host server\n  HostName ${AWS_EC2_HOST}\n  User ec2-user\n  Port 22\n  IdentityFile /home/ec2-user/.ssh/id_rsa\n  StrictHostKeyChecking no" > ~/.ssh/config
+#      - run:
+#          name: bundle install
+#          command: |
+#            cd serverspec
+#            gem list -e rails
+#            bundle install --path vendor/bundle
+#      - run:
+#          name: execute
+#          command: |
+#            cd serverspec
+#            bundle exec rake spec
 
 workflows:
   raisetech:
