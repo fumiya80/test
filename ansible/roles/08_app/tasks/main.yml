@@ -34,7 +34,18 @@
     - { src: 'storage.yml.j2', dest: 'storage.yml' }
     - { src: 'unicorn.rb.j2', dest: 'unicorn.rb' }
 
+# アプリケーションの初期セットアップを実行
+- name: Run application setup script
+  shell: bash -lc "bin/setup"
+  args:
+    chdir: "{{ sample_app_dir }}"
+#  when: mysql_repo_installed.changed  # 上記で変更した変数名に合わせて変更しました
 
+# アセットを事前コンパイル
+- name: Precompile application assets
+  shell: bash -lc "rails assets:precompile"
+  args:
+    chdir: "{{ sample_app_dir }}"
 
 
 #- name: copy database.yml.sample
