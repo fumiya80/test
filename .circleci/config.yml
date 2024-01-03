@@ -68,7 +68,9 @@ jobs:
           playbook-options: '-u ec2-user -i ansible/inventory --private-key /home/ec2-user/.ssh/id_rsa'
 
   serverspec-execute:
-    executor: ruby/default
+#    executor: ruby/default
+    docker:
+      - image: cimg/ruby:2.7-node
     steps:
       - checkout
       - attach_workspace:
@@ -80,7 +82,7 @@ jobs:
       - run:
           name: set-sshkey
           command: |
-            echo -e "Host server\n  HostName ${AWS_EC2_HOST}\n  User ec2-user\n  Port 22\n  IdentityFile ~/.ssh/rsa_key\n  StrictHostKeyChecking no" > ~/.ssh/config
+            echo -e "Host server\n  HostName ${AWS_EC2_HOST}\n  User ec2-user\n  Port 22\n  IdentityFile /home/ec2-user/.ssh/id_rsa\n  StrictHostKeyChecking no" > ~/.ssh/config
       - run:
           name: bundle install
           command: |
