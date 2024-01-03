@@ -70,12 +70,36 @@ jobs:
   serverspec-execute:
     executor: ruby/default
     steps:
-    - checkout
-    - ruby/install-deps:
-        app-dir: serverspec
-    - run: |
-        cd serverspec
-        bundle exec rake spec
+      - checkout
+      - attach_workspace:
+          at: /tmp
+      - run:
+          name: set-environmental-variables
+          command: |
+            echo "export TARGET_HOST=server" >> $BASH_ENV
+            echo "export AWS_EC2_HOST=$(cat /tmp/AWS_EC2_HOST.txt)" >> $BASH_ENV
+      - run:
+          name: set-ssh-config
+          command: |
+            echo -e "Host ${TARGET_HOST}\n  HostName ${AWS_EC2_HOST}\n  User ec2-user\n  Port 22\n  IdentityFile /home/ec2-user/.ssh/id_rsa\n  StrictHostKeyChecking no" > ~/.ssh/config
+      - ruby/install:
+          version: '3.1.2'
+      - ruby/install-deps:
+          app-dir: serverspec
+      - run:
+          name: execute serverspec
+          command: |
+            cd serverspec
+            bundle exec rake spec
+
+#    executor: ruby/default
+#    steps:
+#    - checkout
+#    - ruby/install-deps:
+#        app-dir: serverspec
+#    - run: |
+#        cd serverspec
+#        bundle exec rake spec
 #    executor: ruby/default
 #    docker:
 #      - image: cimg/ruby:2.7-node
