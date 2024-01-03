@@ -2,10 +2,10 @@
   roles:
     - { role: 01_yum, tags: yum }
     - { role: 02_ruby, tags: ruby }
-    - { role: 03_rails, tags: rails }
-    - { role: 04_node, tags: node }
-    - { role: 05_yarn, tags: yarn }
-    - { role: 06_bundler, tags: bundler }
+    - { role: 03_bundler, tags: bundler }
+    - { role: 04_rails, tags: rails }
+    - { role: 05_node, tags: node }
+    - { role: 06_yarn, tags: yarn }
     - { role: 07_mysql, tags: mysql }
     - { role: 08_app, tags: app }
     - { role: 09_nginx, tags: nginx }

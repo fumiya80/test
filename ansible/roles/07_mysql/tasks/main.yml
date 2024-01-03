@@ -6,32 +6,33 @@
     state: absent
 
 - name: Install MySQL
-  become_user: root
+  become: true
+#  become_user: root
   yum:
     name: 'https://repo.mysql.com//mysql80-community-release-el7-7.noarch.rpm'
     state: present
   register: mysql_installed
 
 - name: Import GPG key 
-  become_user: root
+  become: true
   ansible.builtin.rpm_key:
     state: present
     key: https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
   when: mysql_installed.changed
 
 - name: install mysql-community-client
-  become_user: root
+  become: true
   yum:
     name: mysql-community-client
     state: present
-  when: mysql_installed.changed
+#  when: mysql_installed.changed
 
 - name: Install mysql-community-devel
-  become_user: root
+  become: true
   yum:
     name: mysql-community-devel
     state: present
-  when: mysql_installed.changed
+#  when: mysql_installed.changed
 
 # アプリケーションの初期セットアップを実行
 #- name: Run application setup script

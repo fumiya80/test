@@ -35,20 +35,20 @@
     dest: /home/ec2-user/.rbenv/plugins/ruby-build
   when: check_rbenv_installed.failed
 
-- name: check ruby install
-  shell: bash -lc "rbenv version | grep {{ ruby_version }}"
-  register: check_ruby_installed
-  changed_when: no
-  ignore_errors: yes
+#- name: check ruby install
+#  shell: bash -lc "rbenv version | grep {{ ruby_version }}"
+#  register: check_ruby_installed
+#  changed_when: no
+#  ignore_errors: yes
 
 - name: install ruby
   shell: bash -lc "rbenv install {{ ruby_version }}"
-  when: check_ruby_installed.failed
+  when: check_rbenv_installed.failed
 
 - name: rehash rbenv
   shell: bash -lc "rbenv rehash"
-  when: check_ruby_installed.failed
+  when: check_rbenv_installed.failed
 
 - name: set default ruby version
   shell: bash -lc "rbenv global {{ ruby_version }}"
-  when: check_ruby_installed.failed
+  when: check_rbenv_installed.failed

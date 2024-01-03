@@ -1,7 +1,7 @@
 ---
 - name: check rails install
   shell: bash -lc "gem list -e rails | grep {{ rails_version }}"
-  register: rails_installed
+  register: check_rails_installed
   changed_when: no
   ignore_errors: yes
 
@@ -11,4 +11,4 @@
     version: "{{ rails_version }}"
     executable: /home/ec2-user/.rbenv/shims/gem
     user_install: no
-  when: check_rails_installed is failed
+  when: check_rails_installed.failed
