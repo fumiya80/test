@@ -71,13 +71,13 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      - attach_workspace:
-          at: /tmp
-      - run:
-          name: set-environmental-variables
-          command: |
-            echo "export TARGET_HOST=server" >> $BASH_ENV
-            echo "export AWS_EC2_HOST=$(cat /tmp/AWS_EC2_HOST.txt)" >> $BASH_ENV
+#      - attach_workspace:
+#          at: /tmp
+#      - run:
+#          name: set-environmental-variables
+#          command: |
+#            echo "export TARGET_HOST=server" >> $BASH_ENV
+#            echo "export AWS_EC2_HOST=$(cat /tmp/AWS_EC2_HOST.txt)" >> $BASH_ENV
 #      - run:
 #          name: set-ssh-config
 #          command: |
