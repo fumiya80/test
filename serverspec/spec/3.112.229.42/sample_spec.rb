@@ -2,7 +2,6 @@ require 'spec_helper'
 
 listen_port = 80
 
-
 # Mysqlバージョン確認
 describe command('mysql --version') do
   its(:stdout) { should match /mysql\s+Ver\s+8\.0\.35/ }
@@ -46,8 +45,14 @@ describe package('unicorn') do
 end
 
 
+# Unicornのインストール確認
+describe command('unicorn -v') do
+  its(:stdout) { should match /unicorn 6\.1\.0/ }
+end
+
+
 # unicorn.log読取権限確認
-describe file('/home/ec2-user/raisetech-live8-sample-app/log/unicorn.log') do
+describe file('/var/www/raisetech-live8-sample-app/log/unicorn.log') do
   it { should exist }
   it { should be_file }
   it { should be_readable.by('owner') }
@@ -61,7 +66,7 @@ end
 
 
 # unicornのソケットファイル生成場所確認
-describe file('/home/ec2-user/raisetech-live8-sample-app/unicorn.sock') do
+describe file('/var/www/raisetech-live8-sample-app/unicorn.sock') do
   it { should exist }
   it { should be_socket }
 end
@@ -71,7 +76,7 @@ end
 describe file('/etc/nginx/conf.d/rails.conf') do
   it { should exist }
   it { should be_file }
-  its(:content) { should match /upstream unicorn \{\s+server unix:\/\/home\/ec2-user\/raisetech-live8-sample-app\/unicorn\.sock;\s+\}/ }
+  its(:content) { should match /upstream unicorn \{\s+server unix:\/\/var\/www\/raisetech-live8-sample-app\/unicorn\.sock;\s+\}/ }
 end
 
 
