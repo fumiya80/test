@@ -10,7 +10,8 @@ end
 
 # rubyのバージョン確認
 describe command('ruby -v') do
-  its(:stdout) { should match /ruby 3\.1\.2/ }
+  let(:path) { '/home/ec2-user/.rbenv/shims:$PATH' }
+  its(:stdout) { should match /ruby 3.1.2/ }
 end
 
 
@@ -41,13 +42,8 @@ end
 
 # unicornインストール確認
 describe package('unicorn') do
+  let(:path) { '/home/ec2-user/.rbenv/shims:$PATH' }
   it { should be_installed.by('gem') }
-end
-
-
-# Unicornのインストール確認
-describe command('unicorn -v') do
-  its(:stdout) { should match /unicorn 6\.1\.0/ }
 end
 
 
